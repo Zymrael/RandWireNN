@@ -37,10 +37,12 @@ def create_dataloader(hp, args, train):
 
 # MNIST data loading
     
-def MNIST_dataloader(bs):
+def MNIST_dataloader(bs, download=True):
     '''
     :bs: int
         batch size of train and test dataloaders
+    :download: bool
+        whether to download a new copy of MNIST to ./data
     '''
     root = './data'
     if not os.path.exists(root):
@@ -48,8 +50,8 @@ def MNIST_dataloader(bs):
         
     transf = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (1.0,))])
 
-    train_set = datasets.MNIST(root=root, train=True, transform=transf, download=True)
-    test_set = datasets.MNIST(root=root, train=False, transform=transf, download=True)
+    train_set = datasets.MNIST(root=root, train=True, transform=transf, download=download)
+    test_set = datasets.MNIST(root=root, train=False, transform=transf, download=download)
     
     batch_size = len(train_set)
     
